@@ -15,12 +15,12 @@ import {
   upsertStudentController,
   patchStudentController,
 } from '../controllers/students.js';
-import { isValidId } from '../middlewares/isValidId.js';
+// import { isValidId } from '../middlewares/isValidId.js';
 const router = Router();
 router.get('/students', ctrlWrapper(getStudentsController));
 router.get(
   '/students/:studentId',
-  isValidId(),
+  // isValidId(),
   ctrlWrapper(getStudentByIdController),
 );
 router.post(

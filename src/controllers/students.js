@@ -3,17 +3,25 @@ import { createStudent } from '../service/students.js';
 import { deleteStudent } from '../service/students.js';
 import { updateStudebt } from '../service/students.js';
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 export const getStudentsController = async (req, res, next) => {
-  try {
-    const students = await getAllStudents();
-    res.json({
-      status: 200,
-      data: students,
-      message: 'Successfully found students!',
-    });
-  } catch (error) {
-    next(error);
-  }
+  // const students = await getAllStudents();
+  // res.json({
+  //   status: 200,
+  //   data: students,
+  //   message: 'Successfully found students!',
+  // });
+  const { page, perPage } = parsePaginationParams(req.query);
+  const students = await getAllStudents({
+    page,
+    perPage,
+  });
+
+  res.json({
+    status: 200,
+    message: 'Successfully found students!',
+    data: students,
+  });
 };
 
 export const getStudentByIdController = async (req, res, next) => {
